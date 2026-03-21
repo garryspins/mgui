@@ -13,7 +13,7 @@ If you'd like to avoid using `mgui.inject()`, please read its source to properly
 # Usage
 Registration of panels is the core of this library, all distinct logic should be in its own Panel, alongside generic derivative elements.  
 
-## Registering a new Panel type
+### Registering a new Panel type
 ```lua
 local PANEL = {}
 
@@ -35,12 +35,20 @@ end
 mgui.Register("MyPanel", PANEL)
 ```
 
-## Using your Panel
+### Using your Panel
 ```lua
 local pnl = mgui.Create("MyPanel")
 pnl:SetSize(100, 100)
 pnl:SetPos(10, 10)
 ```
 
+# Notable differences between this and VGUI
+Since we handle things different internally, there are a few developer-facing UX differences.
+| what | `mgui` behavior | `vgui` behavior |
+| ---  | ---           | ---           |
+| a | b | c |
+
+
 # Rationale
 I personally am a firm believer in the supremacy of retain-mode UI, and theres very few implementations of RMUI I have interacted with that are easier to use than `vgui`, so this is a way to have that ease of use while being outside of Garry's Mod!
+

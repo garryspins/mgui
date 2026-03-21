@@ -3,14 +3,6 @@ local PANEL = mgui.Register("Panel", {}, "BasePanel") ---@type mgui.Panel: mgui.
 PANEL.__index = PANEL
 mgui.MetaRegistry.PANEL = PANEL
 
-function PANEL:Init()
-end
-
-function PANEL:Paint(w, h)
-    love.graphics.setColor(1, 0, 0)
-    love.graphics.rectangle("fill", 0, 0, w, h)
-end
-
 function PANEL:Center(xperc, yperc)
     local w, h = self:GetSize()
     local pw, ph

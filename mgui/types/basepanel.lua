@@ -68,54 +68,55 @@ function PANEL:GetY()end
 function PANEL:GetCursor()end
 
 ---@param controller mgui.Controller The controller that this is owned by hierarchically
----@return mgui.Panel
+---@return self
 function PANEL:SetController(controller)end 
 ---@param parent mgui.BasePanel The parent of this, or nil if its owned by the Controller
----@return mgui.Panel
+---@return self
 function PANEL:SetParent(parent)end 
 ---@param children mgui.LinkedTable The children of this panel
----@return mgui.Panel
+---@return self
 function PANEL:SetChildren(children)end 
 ---@param visible boolean Is this panel visible? This isnt a check, just a flag you can set if youd like to ignore the panel in rendering and updating
----@return mgui.Panel
+---@return self
 function PANEL:SetVisible(visible)end 
 ---@param lasttranslationdata mgui.TranslationData? The translation data from this panels last render
----@return mgui.Panel
+---@return self
 function PANEL:SetLastTranslationData(lasttranslationdata)end 
 ---@param visiblelastframe boolean Was this panel visible last frame?
----@return mgui.Panel
+---@return self
 function PANEL:SetVisibleLastFrame(visiblelastframe)end 
 ---@param hovered boolean Is this panel hovered?
----@return mgui.Panel
+---@return self
 function PANEL:SetHovered(hovered)end 
 ---@param childhovered boolean Is this panel hierarchically hovered?
----@return mgui.Panel
+---@return self
 function PANEL:SetChildHovered(childhovered)end 
 ---@param enabled boolean Should this panel capture mouse input?
----@return mgui.Panel
+---@return self
 function PANEL:SetMouseInputEnabled(enabled)end 
 ---@param enabled boolean Should this panel capture keyboard input?
----@return mgui.Panel
+---@return self
 function PANEL:SetKeyboardInputEnabled(enabled)end 
 ---@param width number Width of the panel
----@return mgui.Panel
+---@return self
 function PANEL:SetWidth(width)end 
 ---@param height number Height of the panel
----@return mgui.Panel
+---@return self
 function PANEL:SetHeight(height)end 
 ---@param x number X coordinate of the panel, relative to its parent
----@return mgui.Panel
+---@return self
 function PANEL:SetX(x)end 
 ---@param y number Y coordinate of the panel, relative to its parent
----@return mgui.Panel
+---@return self
 function PANEL:SetY(y)end 
 ---@param cursor love.Cursor The cursor to display when hovering this panel, if we have one
----@return mgui.Panel
+---@return self
 function PANEL:SetCursor(cursor)end 
 
 ---Sets the position of the panel
 ---@param x number X coordinate of the panel, relative to its parent
 ---@param y number Y coordinate of the panel, relative to its parent
+---@return self
 function PANEL:SetPos(x, y)end
 
 ---Gets the position of the panel
@@ -126,6 +127,7 @@ function PANEL:GetPos()end
 ---Sets the size of the panel
 ---@param width number Width of the panel
 ---@param height number Height of the panel
+---@return self
 function PANEL:SetSize(width, height)end
 
 ---Gets the size of the panel
@@ -135,10 +137,12 @@ function PANEL:GetSize()end
 
 ---Alias of `SetWidth`
 ---@param width number Width of the panel
+---@return self
 function PANEL:SetWide(width)end
 
 ---Alias of `SetHeight`
 ---@param height number Height of the panel
+---@return self
 function PANEL:SetTall(height)end
 
 ---Alias of `GetWidth`
