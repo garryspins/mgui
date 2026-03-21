@@ -1,6 +1,6 @@
 
 --- The core, Base Panel of `mgui`, This contains all core functionality for operating on a panel
---- All panels derive from this
+--- All panels derive from this, for LuaLS, you should declare your own classes and cast to them from `mgui.Create`
 ---@class mgui.Panel
 ---@field Controller mgui.Controller The controller that this is owned by hierarchically
 ---@field Parent mgui.Panel? The parent of this, or nil if its owned by the Controller
