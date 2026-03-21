@@ -42,6 +42,15 @@ function mgui.AccessorN(t, name, ...)
     end
 end
 
+---Identical to mgui.Accessor, except that this creates an alias of another accessor
+---@param t table Metatable to put the functions on
+---@param alias string Keyname of the new alias functions
+---@param of string Keyname of the original source functions
+function mgui.AccessorAlias(t, alias, of)
+    t["Set" .. alias] = t["Set" .. of]
+    t["Get" .. alias] = t["Get" .. of]
+end
+
 ---Checks if any value is not a NULL panel
 ---@param any any Value to check
 ---@return boolean
@@ -80,7 +89,7 @@ end
 ---Creates a new Linked Table
 ---@return mgui.LinkedTable
 function mgui.LinkedTable()
-    return setmetatable({}, mgui.Registry.LINKEDTABLE)
+    return setmetatable({}, mgui.MetaRegistry.LINKEDTABLE)
         :Init()
 end
 

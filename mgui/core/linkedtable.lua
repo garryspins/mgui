@@ -5,7 +5,7 @@
 ---@field ValueKeys { [any]: any } Data stored by value key
 local LT = {}
 LT.__index = LT
-mgui.Registry.LINKEDTABLE = LT
+mgui.MetaRegistry.LINKEDTABLE = LT
 
 ---@private
 ---@return mgui.LinkedTable self
