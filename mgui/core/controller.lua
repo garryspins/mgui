@@ -121,7 +121,7 @@ function CON:ThinkPanel(panel, dt)
     if not mgui.Valid(panel) then return end
     if not panel:GetVisibleLastFrame() then return end
 
-    panel:Think(dt) -- todo think arg in docs
+    panel:Think(dt)
 
     for k, v in ipairs(panel:GetChildren().IndexKeys) do
         self:ThinkPanel(v, dt)
@@ -210,5 +210,13 @@ function CON:KeyReleased(key, scan)
     self:CallDownTree(function(p)
         if not p:GetKeyboardInputEnabled() then return false end
         p:OnKeyReleased(key, scan)
+    end )
+end
+
+function CON:TextEntered(text)
+    self:CallDownTree(function(p)
+        if not p:GetKeyboardInputEnabled() then return false end
+        if not p:GetTakesTextInput() then return end
+        p:OnTextEntered(text)
     end )
 end

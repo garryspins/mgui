@@ -1,5 +1,5 @@
 
-local PANEL = mgui.Register("Panel", {}, "BasePanel") ---@type mgui.Panel: mgui.BasePanel
+local PANEL = mgui.Register("Panel", {}, "BasePanel") ---@type mgui.Panel
 PANEL.__index = PANEL
 mgui.MetaRegistry.PANEL = PANEL
 

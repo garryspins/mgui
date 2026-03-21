@@ -14,6 +14,7 @@ mgui.Accessor(PANEL, "ChildHovered", false)
 
 mgui.Accessor(PANEL, "MouseInputEnabled", true)
 mgui.Accessor(PANEL, "KeyboardInputEnabled", false)
+mgui.Accessor(PANEL, "TakesTextInput", false)
 
 mgui.Accessor(PANEL, "Width", 60)
 mgui.Accessor(PANEL, "Height", 40)
@@ -103,3 +104,4 @@ function PANEL:OnMouseReleased(button) end
 function PANEL:OnMouseWheeled(dy, dx) end
 function PANEL:OnKeyPressed(key, scan, repeating) end
 function PANEL:OnKeyReleased(key, scan) end
+function PANEL:OnTextEntered(text) end

@@ -17,5 +17,6 @@ require("mgui.core.lib")
 require("mgui.elements.basepanel")
 require("mgui.elements.panel")
 require("mgui.elements.button")
+require("mgui.elements.textentry")
 
 require("mgui.inject")

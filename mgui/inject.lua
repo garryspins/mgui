@@ -32,4 +32,8 @@ function mgui.inject()
     love.keyreleased = detour(love.keyreleased, function(key, scan)
         ctrl:KeyReleased(key, scan)
     end )
+
+    love.textinput = detour(love.textinput, function(text)
+        ctrl:TextEntered(text)
+    end )
 end

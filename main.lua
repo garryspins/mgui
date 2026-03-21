@@ -4,9 +4,8 @@ print(); function love.quit() print() end
 local pnl
 require("mgui.init")
 function love.load()
-    local p = mgui.Create("Button")
-    p:SetSize(100, 300)
-    p:SetPos(300, 300)
+    local p = mgui.Create("TextEntry")
+    p:SetSize(300, 40)
     p:Center()
     pnl = p
 end

@@ -14,6 +14,7 @@
 ---@field ChildHovered boolean Is this panel hierarchically hovered?
 ---@field MouseInputEnabled boolean Should this panel capture mouse input?
 ---@field KeyboardInputEnabled boolean Should this panel capture keyboard input?
+---@field TakesTextInput boolean Should this panel get `love.textinput` events? Requires `KeyboardInputEnabled` to be true
 ---@field Width number Width of the panel
 ---@field Height number Height of the panel
 ---@field X number X coordinate of the panel, relative to its parent
@@ -51,6 +52,9 @@ function PANEL:GetMouseInputEnabled()end
 ---Should this panel capture keyboard input?
 ---@return boolean
 function PANEL:GetKeyboardInputEnabled()end
+---Should this panel get `love.textinput` events? Requires `KeyboardInputEnabled` to be true
+---@return boolean
+function PANEL:GetTakesTextInput()end
 ---Width of the panel
 ---@return number
 function PANEL:GetWidth()end
@@ -96,7 +100,11 @@ function PANEL:SetChildHovered(childhovered)end
 function PANEL:SetMouseInputEnabled(enabled)end 
 ---@param enabled boolean Should this panel capture keyboard input?
 ---@return self
-function PANEL:SetKeyboardInputEnabled(enabled)end 
+function PANEL:SetKeyboardInputEnabled(enabled)end
+---Should this panel get `love.textinput` events? Requires `KeyboardInputEnabled` to be true
+---@param takes boolean
+---@return self
+function PANEL:SetTakesTextInput(takes)end
 ---@param width number Width of the panel
 ---@return self
 function PANEL:SetWidth(width)end 
@@ -205,15 +213,20 @@ function PANEL:OnMouseReleased(button)end
 function PANEL:OnMouseWheeled(dy, dx)end
 
 ---Called when a key has been pressed
----Note that this is not called on all panels, only panels owned by the `mgui.Controller`!
+---Note that this is only called if `KeyboardInputEnabled` is enabled on this and all parents!
 ---@param key love.KeyConstant
 ---@param scan love.Scancode
 ---@param repeating boolean
 function PANEL:OnKeyPressed(key, scan, repeating)end
 
 ---Called when a key has been released
----Note that this is not called on all panels, only panels owned by the `mgui.Controller`!
+---Note that this is only called if `KeyboardInputEnabled` is enabled on this and all parents!
 ---@param key love.KeyConstant
 ---@param scan love.Scancode
 ---@param repeating boolean
 function PANEL:OnKeyReleased(key, scan)end
+
+---Called text has been entered from `love.textinput`
+---Note that this is only called if `KeyboardInputEnabled` and `TakesTextInput` is enabled on this and all parents!
+---@param text string
+function PANEL:OnTextEntered(text)end
