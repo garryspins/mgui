@@ -1,9 +1,9 @@
 
 --- The core, Base Panel of `mgui`, This contains all core functionality for operating on a panel
 --- All panels derive from this, for LuaLS, you should declare your own classes and cast to them from `mgui.Create`
----@class mgui.Panel
+---@class mgui.BasePanel
 ---@field Controller mgui.Controller The controller that this is owned by hierarchically
----@field Parent mgui.Panel? The parent of this, or nil if its owned by the Controller
+---@field Parent mgui.BasePanel? The parent of this, or nil if its owned by the Controller
 ---@field Children mgui.LinkedTable The children of this panel
 ---@field Visible boolean Is this panel visible? This isnt a check, just a flag you can set if youd like to ignore the panel in rendering and updating
 ---@field LastTranslationData mgui.TranslationData? The translation data from this panels last render
