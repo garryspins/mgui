@@ -50,11 +50,22 @@ function mgui.Register(name, t, base)
 
             return rawget(s, k)
         end,
+        __tostring = function(s)
+            if rawget(s, "IsNull") then
+                return "<Panel NULL (" .. (s.DebugName or name) .. ")>"
+            end
+            return "<Panel " .. (s.DebugName or name) .. ">"
+        end,
 
         name = name,
         meta = t,
         base = base == nil and "Panel" or base,
     }
+    t.__meta = meta
+    
+    function t:super(key)
+        return baseget(base or "Panel", key)
+    end
 
     mgui.PanelRegistry[name] = meta
     return t
@@ -66,7 +77,6 @@ local function callinitializers(meta, ...)
         callinitializers(base, ...)
     end
 
-    print("calling initializer, ", meta.name)
     if meta.meta.Init then
         meta.meta.Init(...)
     end

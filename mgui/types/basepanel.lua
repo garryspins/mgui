@@ -20,6 +20,7 @@
 ---@field X number X coordinate of the panel, relative to its parent
 ---@field Y number Y coordinate of the panel, relative to its parent
 ---@field Cursor love.Cursor? The cursor to display when hovering this panel, if we have one
+---@field DebugName string? What to print instead of the classname of this panel
 local PANEL = {}
 
 ---Gets the panels controller
@@ -173,7 +174,8 @@ function PANEL:Add(child)end
 function PANEL:Remove()end
 
 ---Invalidates the layout of this panel, causing it to be layed out next frame (or this frame, if its called during a layout)
-function PANEL:InvalidateLayout()end
+---@param now boolean Should we lay the panel out right now?
+function PANEL:InvalidateLayout(now)end
 
 ---Called whenever the panel is "thinking", when its on screen and valid
 ---@param deltatime number Deltatime from the `love.update` this was called from
@@ -181,9 +183,32 @@ function PANEL:Think(deltatime)end
 
 ---Called whenever the panel is requested to be rendered
 ---A transform and scissor are pushed to `love` when this is set, so `0, 0` in this is actually the coordinates of the panel itself
+---### Paint Order
+--- 1. `PrePaint`
+--- 2. `Paint`
+--- 3. `PostPaint`
+--- 4. Children are painted
+--- 5. `PaintOver`
 ---@param w number Width of the panel
 ---@param h number Height of the panel
 function PANEL:Paint(w, h)end
+
+--- Called before Paint
+---@param w number Width of the panel
+---@param h number Height of the panel
+---@param data mgui.TranslationData The active translation data
+function PANEL:PrePaint(w, h, data) end
+
+--- Called after PaintOver
+---@param w number Width of the panel
+---@param h number Height of the panel
+---@param data mgui.TranslationData The active translation data
+function PANEL:PostPaint(w, h, data) end
+
+--- Called after all children have been painted
+---@param w number Width of the panel
+---@param h number Height of the panel
+function PANEL:PaintOver(w, h) end 
 
 ---Called whenever the panel is being laid out, position your children here
 ---@param w number Width of the panel
@@ -230,3 +255,11 @@ function PANEL:OnKeyReleased(key, scan)end
 ---Note that this is only called if `KeyboardInputEnabled` and `TakesTextInput` is enabled on this and all parents!
 ---@param text string
 function PANEL:OnTextEntered(text)end
+
+---Gets the base *table* of this panel  
+---Does not return a valid Panel object, is just a table!  
+---
+---### Usage
+---`panel:super("Paint")(panel, w, h)`
+---@param key any Any key to get from the basepanel
+function PANEL:super(key)end

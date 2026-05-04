@@ -1,12 +1,17 @@
 
-mgui.Translations = { Data = {
-    x = false,
-    y = false,
-    left = false,
-    top = false,
-    right = false,
-    bottom = false,
-}, Stack = {} }
+mgui.Translations = {
+    Data = {
+        x = false,
+        y = false,
+        left = false,
+        top = false,
+        right = false,
+        bottom = false,
+    },
+    Stack = {},
+    ActiveScissor = false,
+    LastTranslation = false,
+}
 local data = mgui.Translations.Data
 local stack = mgui.Translations.Stack
 
@@ -22,12 +27,26 @@ local stack = mgui.Translations.Stack
 function mgui.Scissor(left, top, right, bottom)
     if not left then return love.graphics.setScissor() end
 
+    mgui.Translations.ActiveScissor = {
+        left = left,
+        top = top,
+        right = right,
+        bottom = bottom
+    }
+
     love.graphics.setScissor(
-        math.max(left, 0),
-        math.max(top, 0),
-        math.max(right - left, 0),
-        math.max(bottom - top, 0)
+        mgui.Round(math.max(left, 0)),
+        mgui.Round(math.max(top, 0)),
+        mgui.Round(math.max(right - left, 0)),
+        mgui.Round(math.max(bottom - top, 0))
     )
+end
+
+function mgui.Translate(x, y)
+    love.graphics.origin()
+    
+    if not x then return end
+    love.graphics.translate(mgui.Round(x), mgui.Round(y))
 end
 
 ---Pushes a translation to the internal stack
@@ -72,7 +91,7 @@ function mgui.PushTranslate(x, y, w, h)
 
     love.graphics.origin()
 
-    love.graphics.translate(data.x, data.y)
+    mgui.Translate(data.x, data.y)
     mgui.Scissor(data.left, data.top, data.right, data.bottom)
 end
 
@@ -86,7 +105,7 @@ function mgui.PopTranslate()
     love.graphics.setScissor()
 
     if not data.left then return end
-    love.graphics.translate(data.x, data.y)
+    mgui.Translate(data.x, data.y)
     mgui.Scissor(data.left, data.top, data.right, data.bottom)
 end
 
@@ -104,4 +123,32 @@ function mgui.IsTranslationVisible(translation)
     
     return translation.left < translation.right and
            translation.top < translation.bottom
+end
+
+---Toggles the active translation on/off entirely
+---This resets the scissor and translation to 0
+function mgui.ToggleTranslation()
+    if not mgui.Translations.LastTranslation then
+        mgui.Translations.LastTranslation = mgui.GetActiveTranslation()
+        mgui.Translate()
+        mgui.Scissor()
+
+        return
+    end
+    
+    local last = mgui.Translations.LastTranslation
+    mgui.Translate(last.x, last.y)
+    mgui.Scissor(last.left, last.left, last.right, last.bottom)
+    mgui.Translations.LastTranslation = false
+end
+
+---Sets if clipping should be enabled on the upcoming render operations
+---@param clip boolean
+function mgui.SetClipping(clip)
+    if not clip then
+        return mgui.Scissor()
+    end
+
+    local last = mgui.GetActiveTranslation()
+    mgui.Scissor(last.left, last.left, last.right, last.bottom)
 end

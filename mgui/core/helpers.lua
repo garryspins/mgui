@@ -57,7 +57,7 @@ end
 function mgui.Valid(any)
     if not any then return false end
     if type(any) ~= "table" then return true end
-    return not any.IsNull
+    return not rawget(any, "IsNull")
 end
 
 ---Internal debugging function to print a table
@@ -81,7 +81,7 @@ function mgui.PrintTable(t, indent, done)
             mgui.PrintTable(v, indent .. "  ", done)
             print(indent .. "}")
         else
-            print(indent .. "[" .. tostring(k) .. "] = " .. tostring(v))
+            print(indent .. "[" .. tostring(k) .. "] = '" .. tostring(v) .. "'")
         end
     end
 end
@@ -104,7 +104,7 @@ end
 ---Panics, for internal erroring
 ---@param msg string
 function mgui.Error(msg)
-    error(msg)
+    error(msg, 2)
 end
 
 ---Copys the input table to the output, not a deep copy
@@ -126,4 +126,11 @@ end
 ---@return number
 function mgui.Clamp(val, min, max)
     return math.max(math.min(val, max), min)
+end
+
+---Rounds a value to the nearest integer
+---@param val number
+---@return integer
+function mgui.Round(val)
+    return (val > 0.5) and math.ceil(val) or math.floor(val)
 end

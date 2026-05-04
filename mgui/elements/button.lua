@@ -18,9 +18,9 @@ function PANEL:Paint(w, h)
     love.graphics.rectangle("fill", 0, 0, w, h)
 end
 
-function PANEL:LeftClick() print("LeftClick") end
-function PANEL:RightClick() print("RightClick") end
-function PANEL:MiddleClick() print("MiddleClick") end
+function PANEL:LeftClick()end
+function PANEL:RightClick()end
+function PANEL:MiddleClick()end
 
 function PANEL:CallButton(button)
     self:SetIsPressed(next(self.pressed) ~= nil)
@@ -45,20 +45,17 @@ function PANEL:OnMousePressed(button)
     self.pressed[button] = true
 end
 
-function PANEL:OnMouseReleased(button)
-    if self:GetCallOnRelease() then return end
-    if not self.pressed[button] then return end
-    self.pressed[button] = nil
-    self:CallButton(button)
-end
-
+function PANEL:OnMouseReleased(button) end
 function PANEL:Think()
     if not self:GetCallOnRelease() then return end
     
     for button in pairs(self.pressed) do
         if not love.mouse.isDown(button) then 
             self.pressed[button] = nil
-            self:CallButton(button)
+
+            if self:IsHovered() then
+                self:CallButton(button)
+            end
         end
     end
 end

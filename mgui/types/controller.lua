@@ -1,4 +1,6 @@
 
+---@meta
+
 --- This is the main Controller class, essentially a virtual root panel that handles layouts, thinking and painting
 ---@class mgui.Controller
 ---@field Panels mgui.LinkedTable Panels attached to this controller directly, as in, panels created without a parent
@@ -67,8 +69,9 @@ function CON:Remove(panel)end
 
 ---Marks a `mgui.Panel` for layout
 ---Use `mgui.Panel:InvalidateLayout()`
----@param panel mgui.Panel
-function CON:InvalidateLayout(panel)end
+---@param panel mgui.Panel Panel to layout
+---@param now boolean Should we lay this panel out now?
+function CON:InvalidateLayout(panel, now)end
 
 ---Draws this controller, use `mgui.Draw`
 function CON:Draw()end

@@ -33,6 +33,7 @@ end
 
 function PANEL:Add(child)
     self:GetChildren():Add(child)
+    self:InvalidateLayout()
 end
 
 function PANEL:OnSetParent(parent)
@@ -82,7 +83,7 @@ function PANEL:Remove()
     self.IsNull = true
 end
 
-function PANEL:InvalidateLayout() self:GetController():InvalidateLayout(self) end
+function PANEL:InvalidateLayout(now) self:GetController():InvalidateLayout(self, now) end
 function PANEL:OnSetWidth(w)
     if self.Width == w then return end
     self:InvalidateLayout()
@@ -93,8 +94,12 @@ function PANEL:OnSetHeight(h)
     self:InvalidateLayout()
 end
 
-function PANEL:Think(deltatime) end
+function PANEL:super(key) end
+function PANEL:PrePaint(w, h) end
 function PANEL:Paint(w, h) end
+function PANEL:PostPaint(w, h) end
+function PANEL:PaintOver(w, h) end  
+function PANEL:Think(deltatime) end
 function PANEL:PerformLayout(w, h) end
 function PANEL:OnRemove() end
 function PANEL:OnCursorEntered() end

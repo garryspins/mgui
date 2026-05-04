@@ -46,3 +46,60 @@ function LT:RemoveByIndex(index)
     self.IndexKeys[len] = nil
     self.ValueKeys[value] = nil
 end
+
+---Swaps two values in the table by their values
+---@param a any
+---@param b any
+---@return mgui.LinkedTable
+function LT:Swap(a, b)
+    return self:SwapByIndex(
+        self.ValueKeys[a],
+        self.ValueKeys[b]
+    )
+end
+
+---Swaps two values in the table by their indices
+---@param a number
+---@param b number
+---@return mgui.LinkedTable
+function LT:SwapByIndex(a, b)
+    if not self.IndexKeys[a] then return self end
+    if not self.IndexKeys[b] then return self end
+
+    local tmp = self.IndexKeys[b]
+
+    self.IndexKeys[b] = self.IndexKeys[a]
+    self.IndexKeys[a] = tmp
+
+    self.ValueKeys[self.IndexKeys[a]] = a
+    self.ValueKeys[self.IndexKeys[b]] = b
+
+    return self
+end
+
+---Returns an iterator for the values of the linkedtable
+---Identical to `ipairs(self.IndexKeys)`
+---@param last number Initial value, should be left alone
+---@return function
+function LT:Iter(last)
+    return next, self.IndexKeys, last
+end
+
+-- local lt = mgui.LinkedTable()
+--     :Add("some1")
+--     :Add("some2")
+--     :Add("some3")
+--     :Add("some4")
+--     :Add("some5")
+
+-- for k, v in lt:Iter() do
+--     print(k, v) 
+-- end
+
+-- lt:SwapByIndex(1, 5)
+-- lt:Swap("some1", "some5")
+
+-- print("[IndexKeys]")
+-- mgui.PrintTable(lt.IndexKeys)
+-- print("[ValueKeys]")
+-- mgui.PrintTable(lt.ValueKeys)
