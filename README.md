@@ -42,13 +42,6 @@ pnl:SetSize(100, 100)
 pnl:SetPos(10, 10)
 ```
 
-# Notable differences between this and VGUI
-Since we handle things different internally, there are a few developer-facing UX differences.
-| what | `mgui` behavior | `vgui` behavior |
-| ---  | ---           | ---           |
-| a | b | c |
-
-
 # Rationale
 I personally am a firm believer in the supremacy of retain-mode UI, and theres very few implementations of RMUI I have interacted with that are easier to use than `vgui`, so this is a way to have that ease of use while being outside of Garry's Mod!
 
